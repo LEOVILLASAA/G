@@ -1,296 +1,455 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TransHuaycán</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<img src="https://transmar.pe/img/puntos%20de%20venta/tocache.jpg" alt="Logo TransHuaycán" style="width: 120px; display: block; margin: 0 auto 20px auto;">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descargador de Páginas Web - ventas repuestos automotriz</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
 
-    body {
-      background-color: #f2f2f2;
-    }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
 
-    header {
-      background-color: #004aad;
-      padding: 20px;
-      color: white;
-      text-align: center;
-    }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
 
-    nav {
-      background-color: #0066cc;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      padding: 15px 0;
-    }
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      padding: 10px 15px;
-      border-radius: 5px;
-      transition: background 0.3s;
-    }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
 
-    nav a:hover {
-      background-color: #003366;
-    }
+        .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
 
-    #contenido {
-      padding: 30px;
-      background-color: white;
-      margin: 20px auto;
-      max-width: 900px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      border-radius: 10px;
-      min-height: 300px;
-    }
+        .url-section {
+            background: #f8f9ff;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border-left: 4px solid #667eea;
+        }
 
-    footer {
-      background-color: #004aad;
-      color: white;
-      text-align: center;
-      padding: 15px;
-      margin-top: 40px;
-    }
+        .input-group {
+            margin-bottom: 20px;
+        }
 
-    .formulario input {
-      display: block;
-      margin-bottom: 10px;
-      padding: 8px;
-      width: 100%;
-    }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
 
-    .formulario button {
-      padding: 10px 20px;
-      background-color: #004aad;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+        .url-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
 
-  #boletaPDF {
-  display: none;
-  padding: 30px 40px;
-  color: #000;
-  background-image: url('https://s1.rdbuz.com/bo-images/PER/WM/15786/938/FR/DS/webp/8UqrDY.webp'); /* Fondo bus elegante */
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-color: rgba(255, 255, 255, 0.95);
-  border: 3px solid #004aad;
-  border-radius: 12px;
-  width: 100%;
-  max-width: 700px;
-  margin: auto;
-  font-family: 'Arial', sans-serif;
-  box-shadow: 0 0 15px rgba(0,0,0,0.3);
-  backdrop-filter: blur(3px);
-}
+        .url-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.2);
+        }
 
-#boletaPDF h2 {
-  text-align: center;
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #004aad;
-  border-bottom: 2px dashed #004aad;
-  padding-bottom: 10px;
-}
+        .button-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
 
-#boletaPDF p {
-  background-color: rgba(255, 255, 255, 0.85);
-  padding: 8px 15px;
-  margin: 10px 0;
-  border-left: 4px solid #004aad;
-  border-radius: 6px;
-  font-size: 16px;
-}
+        .btn {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
 
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
 
-  </style>
+        .btn-secondary {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .warning-section {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .warning-section h3 {
+            color: #856404;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .warning-section p {
+            color: #856404;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .info-section {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .info-section h3 {
+            color: #0c5460;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-section ul {
+            color: #0c5460;
+            padding-left: 20px;
+        }
+
+        .info-section li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .iframe-container {
+            margin: 30px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .iframe-container iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+        }
+
+        .status-message {
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: none;
+        }
+
+        .status-success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .status-error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .status-info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>TransHuaycán</h1>
-    <p>Transporte interprovincial desde Huaycán</p>
-  </header>
-<p style="text-align: center; font-style: italic; margin-top: 30px;">
-  ¡Esperamos que disfrute su viaje con nosotros!<br>
-  <strong>TransHuaycán - Tu ruta confiable</strong>
-</p>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🌐ventas repuestos automotriz</div>
+            <h1>Descargador de Páginas Web</h1>
+            <p class="subtitle">Ingresa una URL para navegar y descargar su contenido HTML</p>
+        </div>
 
-  <nav>
-    <a href="#" onclick="mostrarContenido('inicio')">Inicio</a>
-    <a href="#" onclick="mostrarContenido('nosotros')">Nosotros</a>
-    <a href="#" onclick="mostrarContenido('servicios')">Servicios</a>
-    <a href="#" onclick="mostrarContenido('rutas')">Rutas</a>
-    <a href="#" onclick="mostrarContenido('galeria')">Galería</a>
-    <a href="#" onclick="mostrarContenido('contacto')">Contacto</a>
-    <a href="#" onclick="mostrarContenido('reservar')">Reservar</a>
-  </nav>
+        <div class="url-section">
+            <div class="input-group">
+                <label for="urlInput">🔗 URL de la página web:</label>
+                <input 
+                    type="url" 
+                    id="urlInput" 
+                    class="url-input" 
+                    placeholder="https://ejemplo.com" 
+                  
+                >
+            </div>
 
-  <div id="contenido"></div>
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="navigateToUrl()">
+                    🚀 Ir a la Página
+                </button>
+                <button class="btn btn-secondary" onclick="downloadPageHTML()">
+                    📥 Descargar HTML
+                </button>
+                <button class="btn btn-success" onclick="downloadCurrentPage()">
+                    💾 Backup de Esta Página
+                </button>
+            </div>
+        </div>
 
-  <!-- BOLETA PDF -->
-  <div id="boletaPDF">
-    <h2>BOLETA DE RESERVA DE VIAJE </h2>
-    <p><strong>Nombre:</strong> <span id="pdf-nombre"></span></p>
-    <p><strong>Apellidos:</strong> <span id="pdf-apellidos"></span></p>
-    <p><strong>DNI:</strong> <span id="pdf-dni"></span></p>
-    <p><strong>Teléfono:</strong> <span id="pdf-telefono"></span></p>
-    <p><strong>Destino:</strong> <span id="pdf-destino"></span></p>
-    <p><strong>Fecha de viaje:</strong> <span id="pdf-fecha"></span></p>
-    <p><strong>Hora de salida:</strong> <span id="pdf-hora"></span></p>
-    <p style="margin-top:20px;">Gracias por viajar con <strong>TransHuaycán</strong>.</p>
-  </div>
+        <div id="statusMessage" class="status-message"></div>
 
-  <footer>
-    <p>&copy; 2025 TransHuaycán. Todos los derechos reservados.</p>
-  </footer>
-
-  <script>
-    function mostrarContenido(seccion) {
-      const contenido = document.getElementById('contenido');
-
-      switch (seccion) {
-        case 'inicio':
-          contenido.innerHTML = `
-            <h2>Inicio</h2>
-            <p>Bienvenido a TransHuaycán, tu mejor opción en transporte seguro, cómodo y rápido.</p>
-            <iframe width="100%" height="400" src="	https://s51.aconvert.com/convert/p3r68-cdx67/yjxpl-xyxim.mp4" frameborder="0" allowfullscreen style="margin-top: 20px; border-radius: 10px;"></iframe>
-          `;
-          break;
-
-        case 'nosotros':
-          contenido.innerHTML = `
-            <h2>Nosotros</h2>
-            <p>Somos una empresa con más de 10 años de experiencia en transporte interprovincial desde Huaycán.</p>
-            <img src="https://s1.rdbuz.com/bo-images/PER/WM/17601/13/FR/DS/webp/vWLU6V.webp" alt="Nosotros" style="width:100%; border-radius:10px; margin-top:15px;">
-          `;
-          break;
-
-        case 'servicios':
-          contenido.innerHTML = `
-            <h2>Servicios</h2>
+        <div class="warning-section">
+            <h3>⚠️ Restricciones de Seguridad</h3>
+            <p><strong>Importante:</strong> Debido a las políticas de seguridad de los navegadores (CORS - Cross-Origin Resource Sharing), no es posible descargar directamente el HTML de sitios web externos desde JavaScript.</p>
+            <p><strong>Alternativas disponibles:</strong></p>
             <ul>
-              <li>Transporte Interprovincial</li>
-              <li>Envío de encomiendas</li>
-              <li>Viajes turísticos programados</li>
-              <li>Atención al cliente 24/7</li>
+                <li>Usar el botón "Ir a la Página" para navegar al sitio</li>
+                <li>Una vez en el sitio, usar Ctrl+S para guardar la página</li>
+                <li>Usar herramientas del navegador (F12 → Elements → Copiar HTML)</li>
+                <li>Usar extensiones del navegador especializadas</li>
             </ul>
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQL3FRKL0KLXGfGgTjUiM4QIhIl7u85zSvc3g&s" style="width:100%; border-radius:10px; margin-top:15px;">
-          `;
-          break;
+        </div>
 
-        case 'rutas':
-          contenido.innerHTML = `
-            <h2>Rutas</h2>
+        <div class="info-section">
+            <h3>ℹ️ Cómo Usar Esta Herramienta</h3>
             <ul>
-              <li>Huaycán - Huancayo</li>
-              <iframe src="https://www.google.com/maps?q=Huancayo,+Perú&output=embed" width="100%" height="300" style="border:0; border-radius:10px; margin-bottom:20px;"></iframe>
-              <li>Huaycán - Tarma</li>
-              <iframe src="https://www.google.com/maps?q=Tarma,+Perú&output=embed" width="100%" height="300" style="border:0; border-radius:10px; margin-bottom:20px;"></iframe>
-              <li>Huaycán - La Merced</li>
-              <iframe src="https://www.google.com/maps?q=La+Merced,+Chanchamayo,+Perú&output=embed" width="100%" height="300" style="border:0; border-radius:10px; margin-bottom:20px;"></iframe>
-              <li>Huaycán - Satipo</li>
-              <iframe src="https://www.google.com/maps?q=Satipo,+Perú&output=embed" width="100%" height="300" style="border:0; border-radius:10px;"></iframe>
+                <li><strong>Paso 1:</strong> Ingresa la URL completa (incluyendo https://)</li>
+                <li><strong>Paso 2:</strong> Haz clic en "Ir a la Página" para navegar al sitio</li>
+                <li><strong>Paso 3:</strong> Una vez en el sitio, usa las herramientas del navegador para guardar</li>
+                <li><strong>Alternativa:</strong> Usa "Backup de Esta Página" para descargar esta herramienta</li>
             </ul>
-          `;
-          break;
+        </div>
 
-        case 'galeria':
-          contenido.innerHTML = `
-            <h2>Galería</h2>
-            <p>Conoce nuestras modernas unidades y momentos del viaje.</p>
-            <img src="https://s11.aconvert.com/convert/p3r68-cdx67/ip3a1-4rlq1.webp" style="width:100%; border-radius:10px; margin-top:10px;">
-            <img src="https://s1.rdbuz.com/bo-images/PER/WM/15782/13/FR/DS/webp/Szc357.webp" style="width:100%; border-radius:10px; margin-top:10px;">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3LEQSq15AXOAyaccakI70PfaoQiJ4-aeL6A&s" style="width:100%; border-radius:10px; margin-top:10px;">
-          `;
-          break;
+        <div class="iframe-container" id="iframeContainer">
+            <iframe id="websiteFrame" src=""></iframe>
+        </div>
+    </div>
 
-        case 'contacto':
-          contenido.innerHTML = `
-            <h2>Contacto</h2>
-            <ul>
-              <li>Teléfono: 01 234 5678</li>
-              <li>Correo: contacto@transhuaycan.pe</li>
-              <li>Dirección: Av. Principal 123, Huaycán</li>
-            </ul>
-            <iframe src="https://www.google.com/maps?q=Huaycán,+Perú&output=embed" width="100%" height="300" style="border:0; margin-top:15px; border-radius:10px;"></iframe>
-          `;
-          break;
+    <script>
+        function showStatus(message, type = 'info') {
+            const statusDiv = document.getElementById('statusMessage');
+            statusDiv.className = `status-message status-${type}`;
+            statusDiv.textContent = message;
+            statusDiv.style.display = 'block';
+            
+            // Ocultar después de 5 segundos
+            setTimeout(() => {
+                statusDiv.style.display = 'none';
+            }, 5000);
+        }
 
-        case 'reservar':
-          contenido.innerHTML = `
-            <h2>Reserva tu pasaje</h2>
-            <form class="formulario" onsubmit="generarPDF(event)">
-              <input type="text" id="nombre" placeholder="Nombre" required>
-              <input type="text" id="apellidos" placeholder="Apellidos" required>
-              <input type="text" id="dni" placeholder="DNI" required>
-              <input type="text" id="telefono" placeholder="Teléfono" required>
-              <input type="text" id="destino" placeholder="Destino" required>
-              <input type="date" id="fecha" required>
-              <input type="time" id="hora" required>
-              <button type="submit">Generar PDF</button>
-            </form>
-          `;
-          break;
-      }
-    }
+        function validateUrl(url) {
+            try {
+                new URL(url);
+                return true;
+            } catch {
+                return false;
+            }
+        }
 
-    function generarPDF(event) {
-      event.preventDefault();
+        function navigateToUrl() {
+            const urlInput = document.getElementById('urlInput');
+            let url = urlInput.value.trim();
+            
+            if (!url) {
+                showStatus('Por favor, ingresa una URL válida.', 'error');
+                return;
+            }
+            
+            // Agregar https:// si no tiene protocolo
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                url = 'https://' + url;
+                urlInput.value = url;
+            }
+            
+            if (!validateUrl(url)) {
+                showStatus('La URL ingresada no es válida.', 'error');
+                return;
+            }
+            
+            showStatus('Navegando a: ' + url, 'success');
+            
+            // Abrir en nueva pestaña
+            window.open(url, '_blank');
+        }
 
-      const nombre = document.getElementById('nombre').value;
-      const apellidos = document.getElementById('apellidos').value;
-      const dni = document.getElementById('dni').value;
-      const telefono = document.getElementById('telefono').value;
-      const destino = document.getElementById('destino').value;
-      const fecha = document.getElementById('fecha').value;
-      const hora = document.getElementById('hora').value;
+        function downloadPageHTML() {
+            const urlInput = document.getElementById('urlInput');
+            let url = urlInput.value.trim();
+            
+            if (!url) {
+                showStatus('Por favor, ingresa una URL válida.', 'error');
+                return;
+            }
+            
+            // Agregar https:// si no tiene protocolo
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                url = 'https://' + url;
+            }
+            
+            if (!validateUrl(url)) {
+                showStatus('La URL ingresada no es válida.', 'error');
+                return;
+            }
+            
+            showStatus('Intentando descargar HTML...', 'info');
+            
+            // Intentar fetch (probablemente fallará por CORS)
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                    }
+                    return response.text();
+                })
+                .then(html => {
+                    // Si llegamos aquí, el fetch funcionó
+                    downloadHtmlContent(html, url);
+                    showStatus('¡HTML descargado exitosamente!', 'success');
+                })
+                .catch(error => {
+                    console.error('Error al descargar:', error);
+                    showStatus(
+                        'No se pudo descargar el HTML debido a restricciones CORS. ' +
+                        'Usa el botón "Ir a la Página" y luego Ctrl+S para guardar.', 
+                        'error'
+                    );
+                    
+                    // Ofrecer alternativa: abrir la página
+                    setTimeout(() => {
+                        if (confirm('¿Quieres abrir la página en una nueva pestaña para guardarla manualmente?')) {
+                            window.open(url, '_blank');
+                        }
+                    }, 2000);
+                });
+        }
 
-      document.getElementById('pdf-nombre').textContent = nombre;
-      document.getElementById('pdf-apellidos').textContent = apellidos;
-      document.getElementById('pdf-dni').textContent = dni;
-      document.getElementById('pdf-telefono').textContent = telefono;
-      document.getElementById('pdf-destino').textContent = destino;
-      document.getElementById('pdf-fecha').textContent = fecha;
-      document.getElementById('pdf-hora').textContent = hora;
+        function downloadHtmlContent(htmlContent, sourceUrl) {
+            try {
+                const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+                const downloadLink = document.createElement('a');
+                downloadLink.href = URL.createObjectURL(blob);
+                
+                // Generar nombre de archivo basado en la URL
+                const urlObj = new URL(sourceUrl);
+                const domain = urlObj.hostname.replace(/[^a-zA-Z0-9]/g, '_');
+                const timestamp = new Date().toISOString().slice(0, 19).replace(/[:-]/g, '');
+                downloadLink.download = `${domain}_${timestamp}.html`;
+                
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+                URL.revokeObjectURL(downloadLink.href);
+                
+            } catch (error) {
+                console.error('Error al crear descarga:', error);
+                showStatus('Error al crear el archivo de descarga.', 'error');
+            }
+        }
 
-      const boleta = document.getElementById('boletaPDF');
-      boleta.style.display = "block";
+        function downloadCurrentPage() {
+            try {
+                const htmlContent = document.documentElement.outerHTML;
+                const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+                const downloadLink = document.createElement('a');
+                downloadLink.href = URL.createObjectURL(blob);
+                
+                const timestamp = new Date().toISOString().slice(0, 19).replace(/[:-]/g, '');
+                downloadLink.download = `descargador_web_leovs_${timestamp}.html`;
+                
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+                URL.revokeObjectURL(downloadLink.href);
+                
+                showStatus('¡Backup de esta página descargado exitosamente!', 'success');
+                
+            } catch (error) {
+                console.error('Error al descargar backup:', error);
+                showStatus('Error al descargar el backup.', 'error');
+            }
+        }
 
-      setTimeout(() => {
-        const opciones = {
-          margin: 0.5,
-          filename: `Boleta_${nombre}_${dni}.pdf`,
-          image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: { scale: 2 },
-          jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-        };
-
-        html2pdf().set(opciones).from(boleta).save().then(() => {
-          boleta.style.display = "none";
+        // Permitir presionar Enter en el input para navegar
+        document.getElementById('urlInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                navigateToUrl();
+            }
         });
-      }, 500);
-    }
 
-    // Cargar "Nosotros" por defecto
-    window.onload = function () {
-      mostrarContenido('nosotros');
-    };
-  </script>
+        // Mostrar mensaje de bienvenida
+        window.onload = function() {
+            showStatus('Herramienta cargada. Ingresa una URL para comenzar.', 'info');
+        };
+    </script>
 </body>
 </html>
+
